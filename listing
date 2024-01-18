@@ -1,0 +1,109 @@
+GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:27:47 2024  Page 0001
+
+LINE    PG/LN  A...B............................................................
+
+000001        ******************************************************************
+000002        * PROGRAM NAME: MAGIQCSV                                         *
+000003        * AUTHOR: JERIC JAY MALLARI                                      *
+000004        *                                                                *
+000005        * MAINTENANCE LOG                                                *
+000006        * DATE     AUTHOR                MAINTENANCE REQUIREMENTS        *
+000007        * -------- --------------------- ------------------------------- *
+000008        * 18/01/24 JERIC JAY MALLARI     READ CSV AND DISPLAY WITHOUT    *
+000009        *                                COMMA                           *
+000010        *                                                                *
+000011        ******************************************************************
+000012         IDENTIFICATION DIVISION.
+000013         PROGRAM-ID. MAGIQCSV.
+000014         DATE-WRITTEN. 18/01/24
+000015         DATE-COMPILED. 18/01/24
+000016        ******************************************************************
+000017         ENVIRONMENT DIVISION.
+000018         INPUT-OUTPUT SECTION.
+000019         FILE-CONTROL.
+000020
+000021         SELECT CSVIN ASSIGN TO "INPUT.CSV"
+000022             ORGANIZATION IS LINE SEQUENTIAL.
+000023
+000024        ******************************************************************
+000025         DATA DIVISION.
+000026         FILE SECTION.
+000027
+000028         FD  CSVIN.
+000029         01  CSVIN-REC                           PIC X(80).
+000030
+000031         WORKING-STORAGE SECTION.
+000032
+000033         01  WS-CSVIN-EOF-FLAG                   PIC X VALUE 'N'.
+000034             88  WS-CSVIN-EOF                          VALUE 'Y'.
+000035             88  WS-CSVIN-NOT-EOF                      VALUE 'N'.
+000036
+000037         01  WS-INPUT-REC                        PIC X(80).
+000038
+000039         01  WS-COUNTERS.
+000040             05  WS-COUNTER1                     PIC 9(2) VALUE ZEROES.
+000041             05  WS-COUNTER2                     PIC 9(2) VALUE ZEROES.
+000042
+000043         01  WS-LINE.
+000044             05  WS-LETTER OCCURS 80 TIMES       PIC X VALUE SPACES.
+000045
+000046        ******************************************************************
+000047         PROCEDURE DIVISION.
+000048
+000049           0000-START.
+000050
+000051             PERFORM 1000-INITIALIZATION.
+000052             PERFORM 2000-MAIN UNTIL WS-CSVIN-EOF.
+GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:27:47 2024  Page 0002
+
+LINE    PG/LN  A...B............................................................
+
+000053             PERFORM 9000-END.
+000054
+000055           1000-INITIALIZATION.
+000056
+000057             OPEN INPUT CSVIN.
+000058
+000059             INITIALIZE WS-INPUT-REC
+000060                        WS-COUNTERS.
+000061
+000062             PERFORM 1100-READ-CSVIN.
+000063
+000064           1100-READ-CSVIN.
+000065
+000066             READ CSVIN INTO WS-INPUT-REC
+000067                AT END
+000068                   MOVE 'Y' TO WS-CSVIN-EOF-FLAG
+000069             END-READ.
+000070
+000071           2000-MAIN.
+000072
+000073             PERFORM VARYING WS-COUNTER1 FROM 0 BY 1
+000074                UNTIL WS-COUNTER1 = FUNCTION LENGTH(WS-INPUT-REC)
+000075
+000076                IF WS-INPUT-REC(WS-COUNTER1:1) = ","
+000077                   CONTINUE
+000078                ELSE
+000079                  MOVE WS-INPUT-REC(WS-COUNTER1:1)
+000080                         TO WS-LETTER(WS-COUNTER2)
+000081                   ADD 1 TO WS-COUNTER2
+000082                END-IF
+000083
+000084             END-PERFORM.
+000085
+000086             DISPLAY WS-LINE.
+000087
+000088             PERFORM 1100-READ-CSVIN.
+000089
+000090             INITIALIZE WS-COUNTERS
+000091                        WS-LINE.
+000092
+000093           9000-END.
+000094
+000095             CLOSE CSVIN.
+000096             STOP RUN.
+000097
+
+
+0 warnings in compilation group
+0 errors in compilation group
