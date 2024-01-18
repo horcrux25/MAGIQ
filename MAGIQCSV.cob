@@ -57,7 +57,8 @@
            OPEN INPUT CSVIN.
            
            INITIALIZE WS-INPUT-REC
-                      WS-COUNTERS.
+                      WS-COUNTERS
+                      WS-LINE.
 
            PERFORM 1100-READ-CSVIN.
 

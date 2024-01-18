@@ -1,4 +1,4 @@
-GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:27:47 2024  Page 0001
+GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:51:13 2024  Page 0001
 
 LINE    PG/LN  A...B............................................................
 
@@ -54,7 +54,7 @@ LINE    PG/LN  A...B............................................................
 000050
 000051             PERFORM 1000-INITIALIZATION.
 000052             PERFORM 2000-MAIN UNTIL WS-CSVIN-EOF.
-GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:27:47 2024  Page 0002
+GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:51:13 2024  Page 0002
 
 LINE    PG/LN  A...B............................................................
 
@@ -65,44 +65,45 @@ LINE    PG/LN  A...B............................................................
 000057             OPEN INPUT CSVIN.
 000058
 000059             INITIALIZE WS-INPUT-REC
-000060                        WS-COUNTERS.
-000061
-000062             PERFORM 1100-READ-CSVIN.
-000063
-000064           1100-READ-CSVIN.
-000065
-000066             READ CSVIN INTO WS-INPUT-REC
-000067                AT END
-000068                   MOVE 'Y' TO WS-CSVIN-EOF-FLAG
-000069             END-READ.
-000070
-000071           2000-MAIN.
-000072
-000073             PERFORM VARYING WS-COUNTER1 FROM 0 BY 1
-000074                UNTIL WS-COUNTER1 = FUNCTION LENGTH(WS-INPUT-REC)
-000075
-000076                IF WS-INPUT-REC(WS-COUNTER1:1) = ","
-000077                   CONTINUE
-000078                ELSE
-000079                  MOVE WS-INPUT-REC(WS-COUNTER1:1)
-000080                         TO WS-LETTER(WS-COUNTER2)
-000081                   ADD 1 TO WS-COUNTER2
-000082                END-IF
-000083
-000084             END-PERFORM.
-000085
-000086             DISPLAY WS-LINE.
-000087
-000088             PERFORM 1100-READ-CSVIN.
-000089
-000090             INITIALIZE WS-COUNTERS
-000091                        WS-LINE.
-000092
-000093           9000-END.
-000094
-000095             CLOSE CSVIN.
-000096             STOP RUN.
-000097
+000060                        WS-COUNTERS
+000061                        WS-LINE.
+000062
+000063             PERFORM 1100-READ-CSVIN.
+000064
+000065           1100-READ-CSVIN.
+000066
+000067             READ CSVIN INTO WS-INPUT-REC
+000068                AT END
+000069                   MOVE 'Y' TO WS-CSVIN-EOF-FLAG
+000070             END-READ.
+000071
+000072           2000-MAIN.
+000073
+000074             PERFORM VARYING WS-COUNTER1 FROM 0 BY 1
+000075                UNTIL WS-COUNTER1 = FUNCTION LENGTH(WS-INPUT-REC)
+000076
+000077                IF WS-INPUT-REC(WS-COUNTER1:1) = ","
+000078                   CONTINUE
+000079                ELSE
+000080                  MOVE WS-INPUT-REC(WS-COUNTER1:1)
+000081                         TO WS-LETTER(WS-COUNTER2)
+000082                   ADD 1 TO WS-COUNTER2
+000083                END-IF
+000084
+000085             END-PERFORM.
+000086
+000087             DISPLAY WS-LINE.
+000088
+000089             PERFORM 1100-READ-CSVIN.
+000090
+000091             INITIALIZE WS-COUNTERS
+000092                        WS-LINE.
+000093
+000094           9000-END.
+000095
+000096             CLOSE CSVIN.
+000097             STOP RUN.
+000098
 
 
 0 warnings in compilation group
