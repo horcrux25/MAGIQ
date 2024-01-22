@@ -41,7 +41,7 @@
            05  WS-COUNTER2                     PIC 9(2) VALUE ZEROES.
 
        01  WS-LINE.
-           05  WS-LETTER OCCURS 80 TIMES       PIC X VALUE SPACES.
+           05  WS-LETTER OCCURS 80 TIMES       PIC X VALUE SPACE.
 
       ******************************************************************
        PROCEDURE DIVISION.

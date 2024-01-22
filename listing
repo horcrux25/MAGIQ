@@ -1,4 +1,4 @@
-GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:51:13 2024  Page 0001
+GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Tue Jan 23 10:15:41 2024  Page 0001
 
 LINE    PG/LN  A...B............................................................
 
@@ -45,7 +45,7 @@ LINE    PG/LN  A...B............................................................
 000041             05  WS-COUNTER2                     PIC 9(2) VALUE ZEROES.
 000042
 000043         01  WS-LINE.
-000044             05  WS-LETTER OCCURS 80 TIMES       PIC X VALUE SPACES.
+000044             05  WS-LETTER OCCURS 80 TIMES       PIC X VALUE SPACE.
 000045
 000046        ******************************************************************
 000047         PROCEDURE DIVISION.
@@ -54,7 +54,7 @@ LINE    PG/LN  A...B............................................................
 000050
 000051             PERFORM 1000-INITIALIZATION.
 000052             PERFORM 2000-MAIN UNTIL WS-CSVIN-EOF.
-GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Fri Jan 19 11:51:13 2024  Page 0002
+GnuCOBOL 3.1.2.0        MAGIQCSV.cob         Tue Jan 23 10:15:41 2024  Page 0002
 
 LINE    PG/LN  A...B............................................................
 
